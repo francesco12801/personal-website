@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - Francesco Tinessa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/styleBlog.css">
+    <style>
+        /* Additional styles specific to post page */
+        .post-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .post-header {
+            margin-bottom: 2rem;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            background: linear-gradient(to right, var(--text-primary), var(--accent-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .post-author, .post-date, .post-category {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .post-author i, .post-date i, .post-category i {
+            margin-right: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        .post-category span {
+            background-color: rgba(99, 102, 241, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            color: var(--accent-primary);
+        }
+
+        .post-featured-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content h2, .post-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .post-content h2 {
+            font-size: 1.8rem;
+        }
+
+        .post-content h3 {
+            font-size: 1.5rem;
+        }
+
+        .post-content ul, .post-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .post-content a:hover {
+            text-decoration: underline;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .post-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .post-nav-link {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .post-nav-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .post-nav-link i {
+            margin-right: 0.5rem;
+        }
+
+        .post-nav-link.next i {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+
+        .post-nav-link.next {
+            margin-left: auto;
+        }
+
+        .post-loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .post-error {
+            text-align: center;
+            padding: 3rem;
+            color: #ef4444;
+        }
+
+        .back-to-blog {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-blog:hover {
+            color: var(--accent-primary);
+        }
+
+        .back-to-blog i {
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .post-container {
+                padding: 1.5rem;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">FT</div>
+                Francesco Tinessa
+            </a>
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="experiences.html">Experiences</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Post Content -->
+    <section class="blog-section">
+        <div class="container">
+            <div id="postContainer">
+                <div class="post-loading">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Loading post...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h4>
+                        <div class="logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem; margin-right: 10px;">FT</div>
+                        Francesco Tinessa
+                    </h4>
+                    <p>Creating innovative digital experiences that blend creativity with cutting-edge technology. Let's build something amazing together.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="experiences.html">Experiences</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Connect</h5>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/francesco-tinessa-26b548235">LinkedIn</a></li>
+                        <li><a href="https://github.com/francesco12801">GitHub</a></li>
+                        <li><a href="https://eurekaproject.app">Eureka</a></li>
+                        <li><a href="https://www.instagram.com/francescotinessa_/?next=%2F">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 Francesco Tinessa. All rights reserved.</p>
+                <a href="#" class="back-to-top" id="back-to-top">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTu9H9MJOVP7DooGv5ZAQrpd1PRBBKyBg",
+            authDomain: "personal-web-site-9f769.firebaseapp.com",
+            databaseURL: "https://personal-web-site-9f769-default-rtdb.firebaseio.com",
+            projectId: "personal-web-site-9f769",
+            storageBucket: "personal-web-site-9f769.firebasestorage.app",
+            messagingSenderId: "783944910554",
+            appId: "1:783944910554:web:d8af9c0572d9d61b6a47e3",
+            measurementId: "G-8Q29E84FVH",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Generate random particles
+        function createParticles() {
+            const particles = document.getElementById("particles");
+            const colors = ["#3b82f6", "#6366f1", "#8b5cf6"];
+
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement("div");
+                particle.classList.add("particle");
+
+                // Random properties
+                const size = Math.random() * 15 + 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                // Position
+                const xPos = Math.random() * 100;
+                const yPos = Math.random() * 100;
+
+                // Apply styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.left = `${xPos}%`;
+                particle.style.top = `${yPos}%`;
+
+                // Animation properties
+                particle.style.animationDuration = `${Math.random() * 30 + 15}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+
+                particles.appendChild(particle);
+            }
+        }
+
+        // Scroll header effect
+        function scrollHeader() {
+            const header = document.getElementById("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+        }
+
+        // Mobile menu toggle
+        function mobileMenuToggle() {
+            const menuToggle = document.getElementById("menu-toggle");
+            const nav = document.getElementById("nav");
+            const navLinks = document.querySelectorAll("nav ul li a");
+
+            menuToggle.addEventListener("click", () => {
+                nav.classList.toggle("active");
+                menuToggle.innerHTML = nav.classList.contains("active")
+                    ? '<i class="fa-solid fa-xmark"></i>'
+                    : '<i class="fa-solid fa-bars"></i>';
+            });
+
+            // Close mobile menu when clicking a link
+            navLinks.forEach((link) => {
+                link.addEventListener("click", () => {
+                    nav.classList.remove("active");
+                    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                });
+            });
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            const backToTop = document.getElementById("back-to-top");
+
+            backToTop.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            });
+        }
+
+        // Theme toggle (just for show - always stays in dark mode)
+        function themeToggle() {
+            const themeToggle = document.getElementById("theme-toggle");
+
+            themeToggle.addEventListener("click", () => {
+                themeToggle.innerHTML = themeToggle.innerHTML.includes("moon")
+                    ? '<i class="fa-solid fa-sun"></i>'
+                    : '<i class="fa-solid fa-moon"></i>';
+
+                // Show a notification
+                const notification = document.createElement("div");
+                notification.style.position = "fixed";
+                notification.style.bottom = "20px";
+                notification.style.right = "20px";
+                notification.style.padding = "15px 20px";
+                notification.style.background = "var(--accent-primary)";
+                notification.style.color = "white";
+                notification.style.borderRadius = "var(--border-radius)";
+                notification.style.boxShadow = "0 5px 15px rgba(0,0,0,0.2)";
+                notification.style.zIndex = "1000";
+                notification.style.opacity = "0";
+                notification.style.transform = "translateY(20px)";
+                notification.style.transition = "all 0.3s ease";
+                notification.textContent =
+                    "Dark mode is the only available theme for this website.";
+
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.opacity = "1";
+                    notification.style.transform = "translateY(0)";
+                }, 100);
+
+                setTimeout(() => {
+                    notification.style.opacity = "0";
+                    notification.style.transform = "translateY(20px)";
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            });
+        }
+
+        // Load post data from Firestore
+        async function loadPost() {
+            const postContainer = document.getElementById('postContainer');
+            
+            try {
+                // Get post ID from URL query parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const postId = urlParams.get('id');
+                
+                if (!postId) {
+                    postContainer.innerHTML = `
+                        <div class="post-error">
+                            <h2>Post Not Found</h2>
+                            <p>The post you're looking for doesn't exist or the URL is invalid.</p>
+                            <a href="blog.html" class="back-to-blog">
+                                <i class="fa-solid fa-arrow-left"></i> Back to Blog
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Get post data from Firestore
+                const postRef = doc(db, "posts", postId);
+                const postSnap = await getDoc(postRef);
+                
+                if (!postSnap.exists()) {
+                    postContainer.innerHTML = `
+                        <div class="post-error">
+                            <h2>Post Not Found</h2>
+                            <p>The post you're looking for doesn't exist or has been removed.</p>
+                            <a href="blog.html" class="back-to-blog">
+                                <i class="fa-solid fa-arrow-left"></i> Back to Blog
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Get post data
+                const post = postSnap.data();
+                const postDate = post.timestamp 
+                    ? new Date(post.timestamp.toDate()).toLocaleDateString('en-US', {
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric'
+                    })
+                    : 'Date not available';
+                
+                // Update document title
+                document.title = `${post.title} - Francesco Tinessa Blog`;
+                
+                // Create post HTML
+                const postHTML = `
+                    <a href="blog.html" class="back-to-blog">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Blog
+                    </a>
+                    
+                    <div class="post-container">
+                        <div class="post-header">
+                            <h1 class="post-title">${post.title}</h1>
+                            <div class="post-meta">
+                                <div class="post-author">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>${post.authorEmail || 'Admin'}</span>
+                                </div>
+                                <div class="post-date">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>${postDate}</span>
+                                </div>
+                                <div class="post-category">
+                                    <i class="fa-solid fa-tag"></i>
+                                    <span>${post.category || 'Uncategorized'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${post.imageUrl ? `
+                            <img src="${post.imageUrl}" alt="${post.title}" class="post-featured-image">
+                        ` : ''}
+                        
+                        <div class="post-content">
+                            ${formatContent(post.content)}
+                        </div>
+                        
+                        <div class="post-navigation">
+                            <a href="blog.html" class="post-nav-link">
+                                <i class="fa-solid fa-arrow-left"></i> Back to All Posts
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                postContainer.innerHTML = postHTML;
+                
+            } catch (error) {
+                console.error("Error loading post:", error);
+                postContainer.innerHTML = `
+                    <div class="post-error">
+                        <h2>Error Loading Post</h2>
+                        <p>There was a problem loading this post. Please try again later.</p>
+                        <a href="blog.html" class="back-to-blog">
+                            <i class="fa-solid fa-arrow-left"></i> Back to Blog
+                        </a>
+                    </div>
+                `;
+            }
+        }
+        
+        // Format the content with proper paragraphs and line breaks
+        function formatContent(content) {
+            if (!content) return '';
+            
+            // Convert line breaks to paragraphs
+            return content
+                .split('\n\n')
+                .map(paragraph => paragraph.trim())
+                .filter(paragraph => paragraph.length > 0)
+                .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`)
+                .join('');
+        }
+
+        // Initialize all functions when DOM is loaded
+        document.addEventListener("DOMContentLoaded", () => {
+            createParticles();
+            scrollHeader();
+            mobileMenuToggle();
+            scrollToTop();
+            themeToggle();
+            
+            // Load post data
+            loadPost();
+
+            // Add a simple page load animation
+            document.body.style.opacity = "0";
+            document.body.style.transition = "opacity 0.5s ease";
+
+            setTimeout(() => {
+                document.body.style.opacity = "1";
+            }, 100);
+        });
+    </script>
+</body>
+</html>

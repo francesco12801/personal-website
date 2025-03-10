@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/styleBlog.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">FT</div>
+                Francesco Tinessa
+            </a>
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="experiences.html">Experiences</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Project Blog</h1>
+            <p>Follow my journey through various projects and learn about my development process.</p>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <!-- Blog Header with Admin Button -->
+            <div class="blog-header">
+                <div class="blog-filters">
+                    <button class="filter-button active" data-filter="all">All Projects</button>
+                    <button class="filter-button" data-filter="eureka">Eureka</button>
+                    <button class="filter-button" data-filter="discovery">Discovery</button>
+                    <button class="filter-button" data-filter="tech">New Technologies</button>
+                </div>
+                <button class="admin-button" id="adminButton">
+                    <i class="fa-solid fa-lock"></i> Admin Access
+                </button>
+            </div>
+
+            <!-- Featured Blog Post -->
+            <div class="featured-blog">
+                <div class="featured-blog-card">
+                    <!-- La sezione verrà riempita dinamicamente da blog.js -->
+                    <div class="loading">Loading featured post...</div>
+                </div>
+            </div>
+
+            <!-- Blog Posts Grid -->
+            <div class="blog-container">
+                <!-- Il contenuto verrà caricato dinamicamente da blog.js -->
+                <div class="loading">Loading posts...</div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <div class="pagination-item active">1</div>
+                <div class="pagination-item">2</div>
+                <div class="pagination-item">3</div>
+                <div class="pagination-item">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </div>
+                <div class="pagination-item">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Admin Login</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="login-form" id="loginForm">
+                <p class="login-subtitle">Please login to manage your blog posts</p>
+                <div class="message success" id="loginSuccess">Login successful! Redirecting to admin panel...</div>
+                <div class="message error" id="loginError">Invalid credentials. Please try again.</div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="button-submit admin-form-button" id="loginButton">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h4>
+                        <div class="logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem; margin-right: 10px;">FT</div>
+                        Francesco Tinessa Portfolio
+                    </h4>
+                    <p>Let's build something amazing together 😎. </p>
+                </div>
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="experiences.html">Experiences</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Connect</h5>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/francesco-tinessa-26b548235">LinkedIn</a></li>
+                        <li><a href="https://github.com/francesco12801">GitHub</a></li>
+                        <li><a href="https://eurekaproject.app">Eureka</a></li>
+                        <li><a href="https://www.instagram.com/francescotinessa_/?next=%2F">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 Francesco Tinessa. All rights reserved.</p>
+                <a href="#" class="back-to-top" id="back-to-top">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="./script/blog.js"></script>
+</body>
+</html>

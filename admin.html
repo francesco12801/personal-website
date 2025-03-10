@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Admin - Restricted</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style/styleAdmin.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Secure Blog Admin</h1>
+        <div id="userInfo" class="user-info hidden">
+          <div class="avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span id="userEmail"></span>
+          <button id="logoutBtn" class="logout-btn">
+            <i class="fa-solid fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <!-- Authentication Screen -->
+        <div id="authScreen" class="auth-container">
+          <h2 id="authTitle">Admin Login</h2>
+
+          <div id="loginForm" class="auth-form">
+            <div class="form-group">
+              <label for="loginEmail">Email</label>
+              <input
+                type="email"
+                id="loginEmail"
+                class="form-control"
+                placeholder="Enter your admin email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                class="form-control"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <button id="loginBtn" class="btn btn-primary btn-block">
+                Login
+              </button>
+            </div>
+            
+            <p class="auth-note">
+              This admin panel is restricted to authorized personnel only. 
+              New registrations are not allowed.
+            </p>
+          </div>
+
+          <div id="authError" class="message message-error"></div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="hidden">
+          <!-- Success and Error Messages -->
+          <div id="successMessage" class="message message-success"></div>
+          <div id="errorMessage" class="message message-error"></div>
+
+          <!-- Post Form -->
+          <form id="postForm">
+            <div class="form-group">
+              <label for="title">Post Title</label>
+              <input
+                type="text"
+                id="title"
+                class="form-control"
+                placeholder="Enter post title"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select id="category" class="form-control" required>
+                <option value="">Select category</option>
+                <option value="eureka">Eureka</option>
+                <option value="discovery">Discovery</option>
+                <option value="tech">New Technologies</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="content">Post Content</label>
+              <textarea
+                id="content"
+                class="form-control"
+                placeholder="Write your post here..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Featured Image</label>
+              <div class="image-upload" id="imageUpload">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <p>Click to upload featured image</p>
+                <input
+                  type="file"
+                  id="imageFile"
+                  style="display: none"
+                  accept="image/*"
+                />
+              </div>
+              <img id="imagePreview" class="image-preview" />
+            </div>
+
+            <div class="form-group">
+              <button type="submit" id="publishBtn" class="btn btn-primary">
+                <i class="fa-solid fa-paper-plane"></i> Publish Post
+              </button>
+            </div>
+          </form>
+
+          <!-- Posts List -->
+          <div class="posts-list">
+            <h2 class="posts-heading">Recent Posts</h2>
+            <div id="postsList">
+              <div class="loading">Loading posts...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Import the external JavaScript file as a module -->
+    <script type="module" src="./script/admin.js"></script>
+  </body>
+</html>

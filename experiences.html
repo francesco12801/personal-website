@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Experiences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style/styleExperience.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">FT</div>
+                Francesco Tinessa
+            </a>
+            <button class="mobile-menu-btn" id="menu-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="experiences.html" class="active">Experiences</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>My Journey</h1>
+            <p>Explore my academic and professional experiences that have shaped my career path and expertise.</p>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="academic">Academic</button>
+            <button class="tab-button" data-tab="work">Work Experience</button>
+            <div class="tab-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Academic Timeline Section -->
+    <section id="academic-timeline" class="timeline-section active">
+        <div class="container">
+            <div class="timeline">
+                <div class="timeline-item left" style="--delay: 1">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2025</span>
+                        <h3 class="timeline-title">Exchange Program</h3>
+                        <h4 class="timeline-subtitle">University at Buffalo, SUNY</h4>
+                        <p class="timeline-desc">Exchange semester in USA, Buffalo, New York. I pursued advanced studies in Blockchain Technology, Algorithm Design, Digital Entrepreneurship, and Data Intensive Computing, expanding my technical expertise while gaining valuable international experience.</p>
+                        <span class="timeline-badge academic-badge">Machine Learning</span>
+                        <span class="timeline-badge academic-badge">AI Research</span>
+                        <span class="timeline-badge academic-badge">Data Science</span>
+                    </div>
+                </div>
+                <div class="timeline-item right" style="--delay: 2">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2023-2025</span>
+                        <h3 class="timeline-title">Master's in Software Engineering</h3>
+                        <h4 class="timeline-subtitle">University of Rome "La Sapienza"</h4>
+                        <p class="timeline-desc">Focused on advanced computational paradigms and human-centric software design. Currently deepening my knowledge in artificial intelligence systems, exploring neural network architectures and reinforcement learning techniques. My studies in Human-Computer Interaction center on creating intuitive user experiences through innovative interface design and user research methodologies. In Natural Language Processing, I'm working with transformer-based models and exploring applications in sentiment analysis, text generation, and conversational AI. My research interests bridge theoretical approaches with practical implementations that solve real-world challenges.</p>
+                        <span class="timeline-badge academic-badge">Software Engineering</span>
+                        <span class="timeline-badge academic-badge">HCI</span>
+                        <span class="timeline-badge academic-badge">AI</span>
+                    </div>
+                </div>
+                <div class="timeline-item left" style="--delay: 3">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2022</span>
+                        <h3 class="timeline-title">Advanced AI and Machine Learning Summer School</h3>
+                        <h4 class="timeline-subtitle">Technical University of Dortmund</h4>
+                        <p class="timeline-desc">Participated in an intensive 3-week program focused on cutting-edge machine learning techniques and AI applications. Collaborated with international researchers on practical projects implementing computer vision algorithms and generative models. Gained hands-on experience with TensorFlow and PyTorch frameworks while developing solutions for real-world problems. The program enhanced my understanding of neural network architectures, reinforcement learning, and ethical considerations in AI development.</p>
+                        <span class="timeline-badge academic-badge">Machine Learning</span>
+                        <span class="timeline-badge academic-badge">Deep Learning</span>
+                        <span class="timeline-badge academic-badge">Artificial Intelligence</span>
+                    </div>
+                </div>
+                <div class="timeline-item right" style="--delay: 4">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2020-2023</span>
+                        <h3 class="timeline-title">Bachelor in Computer Engineering</h3>
+                        <h4 class="timeline-subtitle">University of Rome "La Sapienza"</h4>
+                        <p class="timeline-desc">Completed my undergraduate studies with a focus on core computing principles and practical engineering applications. Developed a foundation in robotics through coursework and lab projects. Mastered multiple programming languages (C++, Java, Python) and paradigms while creating various applications and systems. Gained in-depth knowledge of operating system architecture, process management, and system-level programming through practical projects that included implementing a simplified MMU module. Graduated after completing a thesis on a software systems for clubs management embedded with a social newtork for club-enthusiast people.</p>
+                        <span class="timeline-badge academic-badge">Robotics</span>
+                        <span class="timeline-badge academic-badge">Programming</span>
+                        <span class="timeline-badge academic-badge">Operating system</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Experience Timeline Section -->
+    <section id="work-timeline" class="timeline-section">
+        <div class="container">
+            <div class="timeline">
+                <div class="timeline-item left" style="--delay: 1">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2024 - Present</span>
+                        <h3 class="timeline-title">Founder</h3>
+                        <h4 class="timeline-subtitle">Eureka</h4>
+                        <p class="timeline-desc">Founded and currently leading Eureka, an innovative platform that facilitates connections between creative thinkers across diverse fields—from researchers and academics to entrepreneurs and industry professionals. The platform leverages natural language processing and machine learning algorithms to analyze interests, expertise, and ideas, creating meaningful connections between people who think outside the box. Built using a scalable microservices architecture deployed via Docker containers on cloud infrastructure, ensuring reliability and performance as our community grows. Developed the entire technical stack while also managing business development, securing initial funding, and cultivating a thriving ecosystem of innovators who challenge conventional thinking. Eureka bridges the gap between academic research and practical implementation, enabling cross-disciplinary collaboration that sparks groundbreaking innovations. Visit <a href="https://eurekaproject.app" target="_blank">eurekaproject.app</a> to join our community of forward-thinking individuals and organizations.</p>
+                        <span class="timeline-badge work-badge">Docker</span>
+                        <span class="timeline-badge work-badge">Entrepreneurship</span>
+                        <span class="timeline-badge work-badge">Cloud Architecture</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h4>
+                        <div class="logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem; margin-right: 10px;">FT</div>
+                        Francesco Tinessa Portfolio 
+                    </h4>
+                    <p>Let's build something amazing together 😎. </p>
+                </div>
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="experiences.html">Experiences</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h5>Connect</h5>
+                    <ul>
+                        <li><a href="www.linkedin.com/in/francesco-tinessa-26b548235">LinkedIn</a></li>
+                        <li><a href="https://github.com/francesco12801">GitHub</a></li>
+                        <li><a href="https://eurekaproject.app">Eureka</a></li>
+                        <li><a href="https://www.instagram.com/francescotinessa_/?next=%2F">Instagram</a></li>
+                    </ul>
+                </div>                
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 Francesco Tinessa. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script/experience.js"></script>
+</body>
+</html>
+
+
+
