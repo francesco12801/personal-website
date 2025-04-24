@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Post - Francesco Tinessa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../style/styleBlog.css">
+    <link rel="stylesheet" href="./style/styleBlog.css">
     <style>
         /* Additional styles specific to post page */
         .post-container {
@@ -179,6 +179,21 @@
             margin-right: 0.5rem;
         }
 
+        .retry-button {
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .retry-button:hover {
+            background-color: #4f46e5;
+        }
+
         @media (max-width: 768px) {
             .post-title {
                 font-size: 2rem;
@@ -279,21 +294,59 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCTu9H9MJOVP7DooGv5ZAQrpd1PRBBKyBg",
-            authDomain: "personal-web-site-9f769.firebaseapp.com",
-            databaseURL: "https://personal-web-site-9f769-default-rtdb.firebaseio.com",
-            projectId: "personal-web-site-9f769",
-            storageBucket: "personal-web-site-9f769.firebasestorage.app",
-            messagingSenderId: "783944910554",
-            appId: "1:783944910554:web:d8af9c0572d9d61b6a47e3",
-            measurementId: "G-8Q29E84FVH",
-        };
+        // Global variables
+        let app, db;
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // Initialize Firebase securely by fetching config from backend
+        async function initializeFirebase() {
+            try {
+                console.log("Fetching Firebase configuration from server...");
+                
+                // Fetch configuration from the secure endpoint
+                const response = await fetch('https://us-central1-personal-web-site-9f769.cloudfunctions.net/getFirebaseConfig');
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch Firebase config: ${response.status}`);
+                }
+                
+                const firebaseConfig = await response.json();
+                
+                console.log("Firebase configuration loaded successfully");
+                
+                // Initialize Firebase with the fetched configuration
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                
+                // Now that Firebase is initialized, load the post content
+                await loadPost();
+                
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                
+                // Show error message to user
+                const postContainer = document.getElementById('postContainer');
+                if (postContainer) {
+                    postContainer.innerHTML = `
+                        <div class="post-error">
+                            <h2>Connection Error</h2>
+                            <p>We couldn't connect to our servers. Please try again later.</p>
+                            <button id="retryButton" class="retry-button">Retry Connection</button>
+                            <div style="margin-top: 15px;">
+                                <a href="blog.html" class="back-to-blog">
+                                    <i class="fa-solid fa-arrow-left"></i> Back to Blog
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add retry functionality
+                    document.getElementById('retryButton')?.addEventListener('click', () => {
+                        postContainer.innerHTML = '<div class="post-loading"><i class="fa-solid fa-spinner fa-spin"></i> Connecting to server...</div>';
+                        initializeFirebase();
+                    });
+                }
+            }
+        }
 
         // Generate random particles
         function createParticles() {
@@ -547,8 +600,8 @@
             scrollToTop();
             themeToggle();
             
-            // Load post data
-            loadPost();
+            // Initialize Firebase securely first
+            initializeFirebase();
 
             // Add a simple page load animation
             document.body.style.opacity = "0";

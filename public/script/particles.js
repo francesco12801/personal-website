@@ -1,17 +1,67 @@
-// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all animations and interactive elements
-    initParticles();
-    initHeaderScroll();
     initTypingEffect();
-    initScrollReveal();
-    initSkillHover();
-    initBackToTop();
-    initMobileMenu();
-    initThemeToggle();
-    initTiltEffect();
-});
-
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('nav');
+    
+    if (!menuToggle || !nav) {
+      console.error('Errore: elementi del menu mobile non trovati!');
+      return;
+    }
+    
+    console.log('Menu mobile trovato, inizializzazione...');
+    
+    // Aggiungi stili inline critici
+    menuToggle.style.zIndex = '9999';
+    menuToggle.style.position = 'relative';
+    menuToggle.style.display = 'block';
+    
+    nav.style.transition = 'right 0.3s ease';
+    
+    // Correggi la gestione degli eventi di click
+    menuToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation(); // Previene la propagazione dell'evento
+      
+      console.log('Menu toggle cliccato');
+      
+      // Toggle della classe active
+      if (nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        console.log('Menu chiuso');
+      } else {
+        nav.classList.add('active');
+        menuToggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        console.log('Menu aperto');
+      }
+    });
+    
+    // Aggiungi un listener per i click sui link di navigazione
+    const navLinks = nav.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        nav.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        console.log('Menu chiuso dopo click su link');
+      });
+    });
+    
+    // Previeni la chiusura del menu quando si clicca dentro di esso
+    nav.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+    
+    // Chiudi il menu quando si clicca altrove nella pagina
+    document.addEventListener('click', function() {
+      if (nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        console.log('Menu chiuso dopo click esterno');
+      }
+    });
+    
+    console.log('Menu mobile inizializzato con successo!');
+  });
 // Particle animation system for background
 function initParticles() {
     const particlesContainer = document.getElementById('particles');
@@ -78,11 +128,11 @@ function initParticles() {
     });
 }
 
-// Header scroll effect
 function initHeaderScroll() {
     const header = document.getElementById('header');
+    if (!header) return;
     
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
@@ -90,10 +140,11 @@ function initHeaderScroll() {
         }
     });
 }
-
 // Typing effect for the hero section
 function initTypingEffect() {
     const typeText = document.getElementById('type-text');
+    if (!typeText) return;
+    
     const phrases = ['Francesco', 'a Developer', 'a Designer', 'an Innovator'];
     let phraseIndex = 0;
     let charIndex = 0;
@@ -228,19 +279,23 @@ function initSkillHover() {
     });
 }
 
-// Back to top button with smooth scroll
 function initBackToTop() {
-    const backToTopBtn = document.getElementById('back-to-top');
-    
-    window.addEventListener('scroll', function() {
+    const backToTop = document.getElementById('back-to-top');
+    if (!backToTop) return;
+
+    // Show button when user has scrolled down
+    window.addEventListener('scroll', () => {
         if (window.scrollY > 500) {
-            backToTopBtn.style.opacity = '1';
+            backToTop.style.opacity = '1';
+            backToTop.style.visibility = 'visible';
         } else {
-            backToTopBtn.style.opacity = '0';
+            backToTop.style.opacity = '0';
+            backToTop.style.visibility = 'hidden';
         }
     });
-    
-    backToTopBtn.addEventListener('click', function(e) {
+
+    // Scroll to top when clicked
+    backToTop.addEventListener('click', (e) => {
         e.preventDefault();
         window.scrollTo({
             top: 0,
@@ -249,100 +304,104 @@ function initBackToTop() {
     });
 }
 
-// Mobile menu toggle
+
 function initMobileMenu() {
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.getElementById('nav');
     
-    menuToggle.addEventListener('click', function() {
-        nav.classList.toggle('active');
-        
-        // Toggle menu icon
-        const icon = menuToggle.querySelector('i');
-        if (nav.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-xmark');
-        } else {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
-        }
-    });
-    
-    // Close menu when clicking on links
-    const navLinks = nav.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                nav.classList.remove('active');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
-        });
-    });
-}
-
-// Theme toggle
-function initThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-        themeToggle.querySelector('i').classList.remove('fa-moon');
-        themeToggle.querySelector('i').classList.add('fa-sun');
+    if (!menuToggle || !nav) {
+        console.error('Menu mobile: elementi non trovati');
+        return;
     }
     
-    themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('light-theme');
+    console.log('Menu mobile inizializzato');
+    
+    // Assicurati che il pulsante abbia l'icona corretta all'inizio
+    if (!menuToggle.querySelector('i')) {
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
+    
+    menuToggle.addEventListener('click', function(e) {
+        e.preventDefault(); // Previene comportamenti indesiderati
+        console.log('Menu toggle cliccato');
         
-        // Update icon
-        const icon = themeToggle.querySelector('i');
-        if (document.body.classList.contains('light-theme')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'light');
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-            localStorage.setItem('theme', 'dark');
-        }
+        // Toggle della classe active
+        nav.classList.toggle('active');
+        
+        // Aggiorna l'icona
+        menuToggle.innerHTML = nav.classList.contains('active')
+            ? '<i class="fa-solid fa-xmark"></i>'
+            : '<i class="fa-solid fa-bars"></i>';
+        
+        console.log('Stato menu:', nav.classList.contains('active'));
     });
     
-    // Add light theme CSS variables
-    const style = document.createElement('style');
-    style.textContent = `
-        body.light-theme {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #e2e8f0;
-            --text-primary: #0f172a;
-            --text-secondary: #334155;
-            --card-bg: rgba(226, 232, 240, 0.7);
-            background: linear-gradient(135deg, var(--bg-primary), #e5e7eb, #f1f5f9);
+    // Chiudi menu quando si clicca su link
+    const navLinks = document.querySelectorAll('nav ul li a');
+    
+    navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        });
+    });
+    
+    // Chiudi menu quando si clicca fuori
+    document.addEventListener('click', (e) => {
+        // Se il menu è aperto e il click non è sul menu o sul pulsante toggle
+        if (
+            nav.classList.contains('active') && 
+            !nav.contains(e.target) && 
+            e.target !== menuToggle &&
+            !menuToggle.contains(e.target)
+        ) {
+            nav.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
         }
-        
-        body.light-theme header {
-            background: rgba(248, 250, 252, 0.8);
-        }
-        
-        body.light-theme footer {
-            background: rgba(248, 250, 252, 0.8);
-        }
-        
-        body.light-theme .social-link {
-            background: rgba(0, 0, 0, 0.05);
-        }
-        
-        body.light-theme .hero-img-overlay {
-            background: linear-gradient(to top, rgba(248, 250, 252, 0.8), transparent);
-        }
-    `;
-    document.head.appendChild(style);
+    });
 }
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
 
+    themeToggle.addEventListener('click', () => {
+        themeToggle.innerHTML = themeToggle.innerHTML.includes('moon')
+            ? '<i class="fa-solid fa-sun"></i>'
+            : '<i class="fa-solid fa-moon"></i>';
+
+        // Show a notification
+        const notification = document.createElement('div');
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.right = '20px';
+        notification.style.padding = '15px 20px';
+        notification.style.background = 'var(--accent-primary)';
+        notification.style.color = 'white';
+        notification.style.borderRadius = 'var(--border-radius)';
+        notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+        notification.style.zIndex = '1000';
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(20px)';
+        notification.style.transition = 'all 0.3s ease';
+        notification.textContent =
+            'Dark mode is the only available theme for this website.';
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateY(0)';
+        }, 100);
+
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    });
+}
 // 3D tilt effect for images
 function initTiltEffect() {
     const tiltElements = document.querySelectorAll('.hero-img-container, .about-image');

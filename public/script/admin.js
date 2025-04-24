@@ -25,25 +25,8 @@ import {
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-// Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCTu9H9MJOVP7DooGv5ZAQrpd1PRBBKyBg",
-  authDomain: "personal-web-site-9f769.firebaseapp.com",
-  databaseURL: "https://personal-web-site-9f769-default-rtdb.firebaseio.com",
-  projectId: "personal-web-site-9f769",
-  storageBucket: "personal-web-site-9f769.firebasestorage.app",
-  messagingSenderId: "783944910554",
-  appId: "1:783944910554:web:d8af9c0572d9d61b6a47e3",
-  measurementId: "G-8Q29E84FVH",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
-const auth = getAuth(app);
-
-// Global variables
+// Global variables and app instances
+let app, db, storage, auth;
 let selectedImage = null;
 let currentUser = null;
 
@@ -68,7 +51,7 @@ let imagePreview;
 let postsList;
 
 // Initialize the admin panel
-function initAdminPanel() {
+async function initAdminPanel() {
   // Get DOM elements - Auth
   authScreen = document.getElementById("authScreen");
   loginForm = document.getElementById("loginForm");
@@ -88,6 +71,9 @@ function initAdminPanel() {
   imageFile = document.getElementById("imageFile");
   imagePreview = document.getElementById("imagePreview");
   postsList = document.getElementById("postsList");
+  
+  // Initialize Firebase securely
+  await initializeFirebaseSecurely();
 
   // Auth state change listener
   onAuthStateChanged(auth, (user) => {
@@ -110,6 +96,37 @@ function initAdminPanel() {
 
   // Dashboard event listeners
   setupDashboardEvents();
+}
+
+// Initialize Firebase securely by fetching config from backend
+async function initializeFirebaseSecurely() {
+  try {
+    console.log("Fetching Firebase configuration from secure endpoint...");
+    
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyCTu9H9MJOVP7DooGv5ZAQrpd1PRBBKyBg",
+      authDomain: "personal-web-site-9f769.firebaseapp.com",
+      databaseURL: "https://personal-web-site-9f769-default-rtdb.firebaseio.com",
+      projectId: "personal-web-site-9f769",
+      storageBucket: "personal-web-site-9f769.firebasestorage.app",
+      messagingSenderId: "783944910554",
+      appId: "1:783944910554:web:d8af9c0572d9d61b6a47e3",
+      measurementId: "G-8Q29E84FVH"
+    };
+    
+    // Initialize Firebase with the config from server
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    storage = getStorage(app);
+    auth = getAuth(app);
+    
+    console.log("Firebase initialized with secure server config");
+  } catch (error) {
+    console.error("Error initializing Firebase securely:", error);
+    // Mostra messaggio di errore senza fallback
+    showError("Failed to connect to the server. Please check your connection and try again.");
+  }
 }
 
 // Handle login
